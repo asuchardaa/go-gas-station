@@ -1,6 +1,7 @@
 # Gas Station Simulator
 
-This project was implemented due to CTC subject on Technical University in Liberec.
+This project was implemented due to requirements of CTC subject on Technical University of Liberec.
+
 ## Installation
 
 1. Download the source code from the source.
@@ -20,5 +21,6 @@ The simulation configuration is stored in the `config.yaml` file. Here you can a
 ## Statistics
 
 Based on the previous simulation will the statistics output of the whole gas station be printed. It provides user to a complex view what actually this cute thing does.
+
 ## Author
 - Adam Sucharda, 2024
