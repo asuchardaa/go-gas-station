@@ -128,6 +128,7 @@ func main() {
 	}
 
 	end.Add(1)
+
 	go createCarsRoutine(config)
 	for _, stand := range stands {
 		go standRoutine(stand)
@@ -269,9 +270,9 @@ func registerRoutine(cs *CashRegister) {
 }
 
 func doPayment() {
-	var minPaymentT = int(config.Registers.HandleTimeMin.Milliseconds())
-	var maxPaymentT = int(config.Registers.HandleTimeMax.Milliseconds())
-	doSleeping(randomTime(minPaymentT, maxPaymentT))
+	var minPayment = int(config.Registers.HandleTimeMin.Milliseconds())
+	var maxPayment = int(config.Registers.HandleTimeMax.Milliseconds())
+	doSleeping(randomTime(minPayment, maxPayment))
 }
 
 var end sync.WaitGroup
@@ -279,19 +280,23 @@ var end sync.WaitGroup
 func aggregationRoutine() {
 	var totalCars int
 	var totalRegisterTime time.Duration
+	var maxRegisterQueue time.Duration
+
 	var totalGasTime time.Duration
 	maxGasQueue := 0
 	gasCount := 0
+
 	var totalDieselTime time.Duration
 	maxDieselQueue := 0
 	dieselCount := 0
+
 	var totalLPGTime time.Duration
 	maxLPGQueue := 0
 	lpgCount := 0
+
 	var totalElectricTime time.Duration
 	maxElectricQueue := 0
 	electricCount := 0
-	maxRegisterQueue := 0
 
 	for car := range Exit {
 		totalCars++
@@ -322,14 +327,16 @@ func aggregationRoutine() {
 				maxElectricQueue = int(car.QueueTime)
 			}
 		}
-		if car.QueueTime > 0 {
-			maxRegisterQueue = int(car.QueueTime)
+		if car.QueueTime > maxRegisterQueue {
+			maxRegisterQueue = car.QueueTime
 		}
+		// fmt.Println("Car", car.ID, "Fuel", car.Fuel, "QueueTime", car.QueueTime, "FuelTime", car.FuelTime, "PayTime", car.PayTime)
 	}
 	averageGasTime := int(totalGasTime) / gasCount
 	averageDieselTime := int(totalDieselTime) / dieselCount
 	averageLPGTime := int(totalLPGTime) / lpgCount
 	averageElectricTime := int(totalElectricTime) / electricCount
+	averageRegisterTime := totalRegisterTime / time.Duration(totalCars)
 
 	fmt.Println("---------------------------------------")
 	fmt.Println("	     STATISTICS")
@@ -359,12 +366,11 @@ func aggregationRoutine() {
 	fmt.Printf("   avg_queue_time: %dms\n", averageElectricTime)
 	fmt.Printf("   max_queue_time: %dms\n", maxElectricQueue)
 
-	averageRegisterTime := int(totalRegisterTime) / totalCars
 	fmt.Println("registers:")
 	fmt.Printf("  total_cars: %d\n", totalCars)
-	fmt.Printf("  total_time: %ds\n", int(totalRegisterTime))
-	fmt.Printf("  avg_queue_time: %ds\n", averageRegisterTime)
-	fmt.Printf("  max_queue_time: %ds\n", maxRegisterQueue)
+	fmt.Printf("  total_time: %ds\n", int(totalRegisterTime)/1000)
+	fmt.Printf("  avg_queue_time: %dms\n", averageRegisterTime)
+	fmt.Printf("  max_queue_time: %dms\n", maxRegisterQueue)
 	end.Done()
 }
 
