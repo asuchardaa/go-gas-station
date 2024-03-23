@@ -10,7 +10,8 @@ type ConfigLoader struct {
 	Filename string
 }
 
-func (cl *ConfigLoader) Load() Config {
+// Metoda pro načítání konfigurace (.yaml)
+func (cl *ConfigLoader) load() Config {
 	data, err := ioutil.ReadFile(cl.Filename)
 	if err != nil {
 		log.Fatalf("Failed to read config file: %v", err)
