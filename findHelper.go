@@ -22,10 +22,11 @@ func findRegister(registers []*CashRegister) {
 // Metoda pro získání volného stojanu
 func findStandRoutine(stands []*FuelStand) {
 	for car := range arrivals {
-
+		// Vyber nejkratší frontu
 		var bestStand *FuelStand
 		bestQueueLength := -1
 
+		// Prohledávání stojanů
 		for _, stand := range stands {
 			if stand.Type == car.Fuel {
 				queueLength := len(stand.Queue)
@@ -35,8 +36,18 @@ func findStandRoutine(stands []*FuelStand) {
 				}
 			}
 		}
+
+		// Rozdělení aut mezi stojany podle délky fronty
+		for _, stand := range stands {
+			if stand.Type == car.Fuel && len(stand.Queue) == bestQueueLength {
+				bestStand = stand
+				break
+			}
+		}
+
 		bestStand.Queue <- car
 	}
+
 	for _, stand := range stands {
 		close(stand.Queue)
 	}
