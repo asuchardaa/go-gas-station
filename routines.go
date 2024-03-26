@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 	"sync"
 	"time"
@@ -105,7 +106,7 @@ func aggregationRoutine() {
 		if car.QueueTime > maxRegisterQueue {
 			maxRegisterQueue = car.QueueTime
 		}
-		// fmt.Println("Car", car.ID, "Fuel", car.Fuel, "QueueTime", car.QueueTime, "FuelTime", car.FuelTime, "PayTime", car.PayTime)
+		fmt.Println("Car", car.ID, "Fuel", car.Fuel, "QueueTime", car.QueueTime, "FuelTime", car.FuelTime, "PayTime", car.PayTime)
 	}
 	averageGasTime := int(totalGasTime) / gasCount
 	averageDieselTime := int(totalDieselTime) / dieselCount

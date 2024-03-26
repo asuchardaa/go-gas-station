@@ -15,7 +15,7 @@ func generateRandomFuelType() FuelType {
 
 // Metoda pro generování random času -> používám při tankování a placení
 func generateRandomTime(min, max int) time.Duration {
-	return time.Duration(rand.Intn(max-min) + min)
+	return time.Duration(rand.Intn(max-min)+min) * time.Millisecond
 }
 
 // Metoda pro simulaci placení u pokladny
@@ -28,7 +28,7 @@ func simulatePayment() {
 
 // metoda pro spinkání :)
 func sleepFor(duration time.Duration) {
-	time.Sleep(duration * time.Millisecond)
+	time.Sleep(duration)
 }
 
 // Metoda pro vytvoření nového stojanu
