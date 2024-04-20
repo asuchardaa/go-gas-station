@@ -1,26 +1,74 @@
-# Gas Station Simulator
+# Go Gas Station Simulator
 
-This project was implemented due to requirements of CTC subject on Technical University of Liberec.
+## Original assignment
 
-## Installation
+1. Cars arrive at the gas station and wait in the queue for free station
+1. Total number of cars and their arrival time is configurable
+1. There are 4 types of stations: gas, diesel, LPG, electric
+1. Count of stations and their serve time is configurable as interval (e.g. 2–5s) and can be different for each type
+1. Each station can serve only one car at a time, serving time is chosen randomly from station's interval
+1. After the car is served, it goes to the cash register
+1. Count of cash registers and their handle time is configurable
+1. After the car is handled (random time from register handle time range) by the cash register, it leaves the station
+1. Program collects statistics about the time spent in the queue, time spent at the station and time spent at the cash register for every car
+1. Program prints the aggregate statistics at the end of the simulation
 
-1. Download the source code from the source.
-2. Install Go if not already installed: [Go Downloads](https://golang.org/dl/)
-3. Navigate to the root folder of the project.
-4. Run the `go build` command to build the project.
-5. Run the generated executable file.
 
-## Usage
+## Config `config.yaml`
+```yaml
+cars:
+  count: 500
+  arrival_time_min: 1ms   # new car arrives every 1-2ms
+  arrival_time_max: 2ms
+stations:
+  gas:
+    count: 2
+    serve_time_min: 2ms
+    serve_time_max: 5ms
+  diesel:
+    count: 2
+    serve_time_min: 3ms
+    serve_time_max: 6ms
+  lpg:
+    count: 4
+    serve_time_min: 4ms
+    serve_time_max: 7ms
+  electric:
+    count: 2
+    serve_time_min: 5ms
+    serve_time_max: 10ms
+registers:
+  count: 3
+  handle_time_min: 1ms
+  handle_time_max: 3ms
+```
 
-After running the project, various vehicles will be simulated arriving at the gas station. Vehicle handling is done using different pumps and cashiers.
-
-## Configuration
-
-The simulation configuration is stored in the `config.yaml` file. Here you can adjust the numbers of pumps, cash registers, and other simulation parameters.
-
-## Statistics
-
-Based on the previous simulation will the statistics output of the whole gas station be printed. It provides user to a complex view what actually this cute thing does.
-
-## Author
-- Adam Sucharda, 2024
+## Output `output.yaml`
+```yaml
+Stations:
+  gas:
+    total_cars: 127
+    total_time: 384ms
+    avg_queue_time: 3ms
+    max_queue_time: 15ms
+  diesel:
+    total_cars: 123
+    total_time: 502ms
+    avg_queue_time: 4ms
+    max_queue_time: 16ms
+  lpg:
+    total_cars: 112
+    total_time: 583ms
+    avg_queue_time: 5ms
+    max_queue_time: 31ms
+  electric:
+    total_cars: 138
+    total_time: 964ms
+    avg_queue_time: 6ms
+    max_queue_time: 16ms
+registers:
+  total_cars: 500
+  total_time: 9s
+  avg_queue_time: 19ms
+  max_queue_time: 32ms
+```

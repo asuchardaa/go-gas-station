@@ -1,3 +1,4 @@
+// Autor: Adam Sucharda @ 2024
 package main
 
 import (
@@ -63,7 +64,6 @@ func main() {
 
 	cashRegisterWaiter.Wait()
 	close(exit)
-
 	end.Wait()
 }
 

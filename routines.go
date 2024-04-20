@@ -55,6 +55,7 @@ func carArrivalRoutine(config Config) {
 func aggregationRoutine() {
 	var totalCars int
 	var printers Printers
+	stats := Statistics{}
 	var totalRegisterTime time.Duration
 	var maxRegisterQueue time.Duration
 
@@ -116,5 +117,6 @@ func aggregationRoutine() {
 
 	printers.printStatistics(totalCars, totalRegisterTime, maxRegisterQueue, totalGasTime, maxGasQueue, gasCount, averageGasTime, totalDieselTime, maxDieselQueue, dieselCount, averageDieselTime, totalLPGTime, maxLPGQueue, lpgCount, averageLPGTime, totalElectricTime, maxElectricQueue, electricCount, averageElectricTime, averageRegisterTime)
 
+	stats.printStatsInOutputYaml(totalCars, totalRegisterTime, maxRegisterQueue, totalGasTime, time.Duration(maxGasQueue), gasCount, averageGasTime, totalDieselTime, time.Duration(maxDieselQueue), dieselCount, averageDieselTime, totalLPGTime, time.Duration(maxLPGQueue), lpgCount, averageLPGTime, totalElectricTime, time.Duration(maxElectricQueue), electricCount, averageElectricTime, averageRegisterTime)
 	end.Done()
 }

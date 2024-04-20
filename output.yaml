@@ -1,0 +1,26 @@
+Stations:
+ gas:
+   total_cars: 127
+   total_time: 384ms
+   avg_queue_time: 3ms
+   max_queue_time: 15ms
+ diesel:
+   total_cars: 123
+   total_time: 502ms
+   avg_queue_time: 4ms
+   max_queue_time: 16ms
+ lpg:
+   total_cars: 112
+   total_time: 583ms
+   avg_queue_time: 5ms
+   max_queue_time: 31ms
+ electric:
+   total_cars: 138
+   total_time: 964ms
+   avg_queue_time: 6ms
+   max_queue_time: 16ms
+registers:
+  total_cars: 500
+  total_time: 9s
+  avg_queue_time: 19ms
+  max_queue_time: 32ms

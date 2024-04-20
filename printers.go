@@ -16,7 +16,7 @@ type Printers struct {
 func (cp *ConfigPrinter) printConfig() {
 	fmt.Println("---------------------------------------")
 	fmt.Println("	  GAS STATION CONFIG")
-	fmt.Println("----------------------------------------")
+	fmt.Println("---------------------------------------")
 	fmt.Println("Cars Count:", cp.Config.Cars.Count)
 	fmt.Println(" Cars min arrival", cp.Config.Cars.ArrivalTimeMin)
 	fmt.Println(" Cars max arrival", cp.Config.Cars.ArrivalTimeMax)
@@ -35,6 +35,7 @@ func (cp *ConfigPrinter) printConfig() {
 	fmt.Println("Registers Count:", cp.Config.Registers.Count)
 	fmt.Println(" Registers Handle Time Min:", cp.Config.Registers.HandleTimeMin)
 	fmt.Println(" Registers Handle Time Max:", cp.Config.Registers.HandleTimeMax)
+	fmt.Println("---------------------------------------")
 }
 
 // printStatistics Metoda pro výtisk statistik
@@ -67,7 +68,7 @@ func (p *Printers) printStatistics(totalCars int, totalRegisterTime time.Duratio
 	fmt.Printf("   avg_queue_time: %dms\n", averageElectricTime/1000000)
 	fmt.Printf("   max_queue_time: %dms\n", maxElectricQueue)
 
-	fmt.Println("registers:")
+	fmt.Println("Registers:")
 	fmt.Printf("  total_cars: %d\n", totalCars)
 	fmt.Printf("  total_time: %ds\n", int(totalRegisterTime)/1000)
 	fmt.Printf("  avg_queue_time: %dms\n", averageRegisterTime)
